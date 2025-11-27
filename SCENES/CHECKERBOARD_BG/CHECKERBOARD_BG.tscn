@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=4 uid="uid://br8c3cmbd3il1"]
 
-[ext_resource type="Texture2D" uid="uid://da71jglp6y60e" path="res://SYSTEM/SCENES/CHECKERBOARD_BG/CHECKERBOARD.bmp" id="1_4tlcm"]
+[ext_resource type="Texture2D" uid="uid://da71jglp6y60e" path="res://SCENES/CHECKERBOARD_BG/CHECKERBOARD.bmp" id="1_4tlcm"]
 [ext_resource type="Script" uid="uid://d27li18xfp152" path="res://SYSTEM/COMPONENTS/VDP/VDP_OBJECT.gd" id="2_m2p2c"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ammmc"]
