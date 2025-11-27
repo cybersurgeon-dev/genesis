@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="GENESIS"
+run/main_scene="uid://bj4ddg30t1c41"
 run/print_header=false
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -18,9 +19,19 @@ boot_splash/show_image=false
 boot_splash/fullsize=false
 boot_splash/use_filter=false
 
+[autoload]
+
+VDP="*res://SYSTEM/COMPONENTS/VDP/VDP.gd"
+CORE="*res://SYSTEM/COMPONENTS/CORE.gd"
+
 [display]
 
-window/size/viewport_width=480
-window/size/viewport_height=270
+window/size/viewport_width=400
+window/size/viewport_height=224
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+textures/decals/filter=0
+textures/light_projectors/filter=0
