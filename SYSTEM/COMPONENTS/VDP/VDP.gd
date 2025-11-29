@@ -33,7 +33,7 @@ func generate_palette():
 	# FILL PALETTES WITH EMPTY COLORS
 	for palette in len(CRAM):
 		for color in palette_size:
-			CRAM[palette].append(round_color(Color.from_rgba8(color*32,color*32,color*32))) # GENERATE RANDOM COLORS
+			CRAM[palette].append(round_color(Color.from_rgba8(randi_range(0,255),randi_range(0,255),randi_range(0,255)))) # GENERATE RANDOM COLORS
 		CRAM[palette][0].a = 0 # FIRST COLOR IN PALETTE IS ALWAYS TRANSPARENT, SEE THE SPECS 
 	for material:ShaderMaterial in PALETTES:
 		material.shader = load("res://SYSTEM/COMPONENTS/VDP/VDP_OBJECT.gdshader")
