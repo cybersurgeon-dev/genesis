@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://da71jglp6y60e"
-path="res://.godot/imported/CHECKERBOARD.bmp-4eee2404ea87fa5d06ef3bcf1817c620.ctex"
+path="res://.godot/imported/CHECKERBOARD.bmp-a96de21c8c5c4084e6f36b9ac380f799.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SCENES/CHECKERBOARD_BG/CHECKERBOARD.bmp"
-dest_files=["res://.godot/imported/CHECKERBOARD.bmp-4eee2404ea87fa5d06ef3bcf1817c620.ctex"]
+source_file="res://SCENES/VDP_TESTING/CHECKERBOARD.bmp"
+dest_files=["res://.godot/imported/CHECKERBOARD.bmp-a96de21c8c5c4084e6f36b9ac380f799.ctex"]
 
 [params]
 
