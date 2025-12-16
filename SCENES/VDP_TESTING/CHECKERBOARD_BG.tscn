@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=4 uid="uid://br8c3cmbd3il1"]
+[gd_scene load_steps=8 format=4 uid="uid://br8c3cmbd3il1"]
 
 [ext_resource type="Texture2D" uid="uid://da71jglp6y60e" path="res://SCENES/VDP_TESTING/CHECKERBOARD.bmp" id="1_4tlcm"]
+[ext_resource type="Script" uid="uid://24usf2lhvnd8" path="res://SCENES/VDP_TESTING/checkerboard_bg.gd" id="1_s3b2w"]
 [ext_resource type="Script" uid="uid://d27li18xfp152" path="res://SYSTEM/COMPONENTS/VDP/VDP_OBJECT.gd" id="2_m2p2c"]
 [ext_resource type="Texture2D" uid="uid://d4jq73jhahcqr" path="res://SCENES/VDP_TESTING/CIRCLE.bmp" id="3_1ovr6"]
+[ext_resource type="Texture2D" uid="uid://c4b0dq2ih021x" path="res://SCENES/VDP_TESTING/ninja.png" id="4_e3u0y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ammmc"]
 texture = ExtResource("1_4tlcm")
@@ -15,6 +17,7 @@ tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_ammmc")
 
 [node name="CheckerboardBg" type="Node2D"]
+script = ExtResource("1_s3b2w")
 
 [node name="BG_PARALLAX" type="Parallax2D" parent="."]
 repeat_size = Vector2(448, 256)
@@ -36,8 +39,10 @@ texture = ExtResource("3_1ovr6")
 
 [node name="VDPObject" type="Node2D" parent="Circle"]
 script = ExtResource("2_m2p2c")
-palette = 2
+palette = 1
 offset_power = Vector2i(3, 0)
+wave_coeff = 0.01
+wave_amplitude = 4.0
 metadata/_custom_type_script = "uid://d27li18xfp152"
 
 [node name="Circle2" type="Sprite2D" parent="."]
@@ -48,4 +53,15 @@ texture = ExtResource("3_1ovr6")
 script = ExtResource("2_m2p2c")
 palette = 1
 offset_power = Vector2i(0, 3)
+metadata/_custom_type_script = "uid://d27li18xfp152"
+
+[node name="Character" type="Sprite2D" parent="."]
+position = Vector2(201, 114)
+texture = ExtResource("4_e3u0y")
+
+[node name="VDPObject" type="Node2D" parent="Character"]
+script = ExtResource("2_m2p2c")
+palette = 2
+wave_coeff = 0.025
+wave_amplitude = 4.0
 metadata/_custom_type_script = "uid://d27li18xfp152"

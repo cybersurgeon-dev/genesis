@@ -18,6 +18,9 @@ uniform vec4 C14 : source_color;
 uniform vec4 C15 : source_color;
 uniform float fade_value = 0;
 uniform vec2 offset_power;
+uniform float wave_amplitude = 1;
+uniform float wave_coeff = 0;
+uniform float wave_offset = 0;
 
 void fragment(){
 	vec4 referenceColors[16];
@@ -40,7 +43,10 @@ void fragment(){
 
 	vec4 textureColor = texture(TEXTURE, UV);
 	vec2 even = vec2(float(int((UV.y*float(textureSize(TEXTURE, 0).y)))%2*2-1), float(int((UV.x*float(textureSize(TEXTURE, 0).x)))%2*2-1));
-	vec4 offset_texture = texture(TEXTURE, UV  + (even * offset_power/2.0/vec2(float(textureSize(TEXTURE, 0).x),float(textureSize(TEXTURE,0).y))  ));
+	// VDPFX OFFSET
+	// vec4 offset_texture = texture(TEXTURE, UV  + (even * offset_power/2.0/vec2(float(textureSize(TEXTURE, 0).x),float(textureSize(TEXTURE,0).y))  ));
+	
+	// VDPFX OFFSET + WAVE
+	vec4 offset_texture = texture(TEXTURE, UV +(even * offset_power/2.0/vec2(float(textureSize(TEXTURE, 0).x),float(textureSize(TEXTURE,0).y))) + wave_coeff*sin(float(textureSize(TEXTURE, 0).y)*UV.y/wave_amplitude + wave_offset));
 	COLOR = referenceColors[int(floor(offset_texture.r * float(16)))].rgba;
-	//COLOR = offset_texture; 
 }

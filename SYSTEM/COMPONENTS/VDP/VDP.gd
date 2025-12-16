@@ -5,27 +5,32 @@ const tile_size = 8
 const palette_size = 16
 const palette_count = 4
 const color_ramp = [0,52,87,116,144,172,206,255]
-
+var fade_value:float = 0
+var fade_blue:bool = true
+var hardware_colors = true
 var CRAM = []
 var PALETTES = []
 
-func _init() -> void:
+func _ready() -> void:
 	generate_palette()
 	var clear_color = CRAM[0][0]
 	clear_color.a = 1 # CLEAR COLOR IS NOT TRANSPARENT
 	RenderingServer.set_default_clear_color(clear_color)
 	update_palette()
 
-func round_color(color: Color): # PICKING THE CLOSEST COLOR TO THE VDP'S COLORS
-	for channel in 3:
-		var closest_color = color_ramp[0]
-		for i in color_ramp:
-			if abs(color[channel]*255 - closest_color) > abs(color[channel]*255 - i):
-				closest_color = i/255.0
-		color[channel] = closest_color
+func round_color(color: Color):
+	if hardware_colors == true: # PICKING THE CLOSEST COLOR TO THE VDP'S COLORS
+		for channel in 3:
+			var closest_color:float = color_ramp[0]/255.0 # FIXED COLOR RAMP ALGORITHM
+			for i in color_ramp:
+				if abs(color[channel]*255 - closest_color*255) > abs(color[channel]*255 - i):
+					closest_color = i/255.0
+			color[channel] = closest_color
 	return color
 
 func generate_palette():
+	CRAM = []
+	PALETTES = []
 	# REGISTER PALETTES IN CRAM
 	for palette in palette_count:
 		CRAM.append([])
@@ -40,9 +45,15 @@ func generate_palette():
 
 func update_palette():
 	for palette in len(CRAM):
+		var material:ShaderMaterial = PALETTES[palette]
 		for color in len(CRAM[palette]):
-			var material:ShaderMaterial = PALETTES[palette]
-			material.set_shader_parameter("C"+str(color),CRAM[palette][color]) # SYNC GODOT MATERIAL WITH CRAM
+			var color_value = CRAM[palette][color]
+			if fade_blue:
+				material.set_shader_parameter("C"+str(color),round_color(Color(color_value.r*min(1,fade_value), color_value.g*fade_value, color_value.b*min(1,fade_value*4)))) # SYNC GODOT MATERIAL WITH CRAM + SONICFADE
+			else:
+				material.set_shader_parameter("C"+str(color),round_color(Color(color_value.r*min(1,fade_value), color_value.g*min(1,fade_value), color_value.b*min(1,fade_value)))) # SYNC GODOT MATERIAL WITH CRAM + NORMALFADE
+		material.set_shader_parameter("C0",Color(0,0,0,0))
+		get_tree().call_group("VDP_PALETTE_"+str(palette),"update_shader")
 
 func SET_MODE(H,V):
 	var resolution = Vector2(tile_size * H, tile_size * V) # SETTING THE HXX RESOLUTION (ex. H40)
