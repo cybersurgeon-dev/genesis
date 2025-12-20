@@ -11,7 +11,6 @@ func _ready():
 	VDP.CRAM[2][6] = VDP.round_color(Color('b74b21'))
 	VDP.CRAM[2][7] = VDP.round_color(Color('f98d52'))
 	VDP.CRAM[2][8] = VDP.round_color(Color('696682'))
-	
 	VDP.CRAM[2][1] = VDP.round_color(Color("2c1c20"))
 	VDP.CRAM[2][2] = VDP.round_color(Color("0e0b12ff"))
 	VDP.CRAM[2][3] = VDP.round_color(Color("fcb490"))

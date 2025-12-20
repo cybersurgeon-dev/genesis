@@ -62,6 +62,4 @@ texture = ExtResource("4_e3u0y")
 [node name="VDPObject" type="Node2D" parent="Character"]
 script = ExtResource("2_m2p2c")
 palette = 2
-wave_coeff = 0.025
-wave_amplitude = 4.0
 metadata/_custom_type_script = "uid://d27li18xfp152"
