@@ -1,46 +1,73 @@
 extends Node
 
+var scene:Node
+var scene_transition:bool = false
+var scene_path:String
+var sound
+var cache:Dictionary = {}
+var debug:bool = true
+
+
 func _ready():
 	VDP.SET_MODE(50,28)
-	get_tree().change_scene_to_file("res://SCENES/VDP_TESTING/CHECKERBOARD_BG.tscn")
-	#VDP.CRAM[2][1] = VDP.round_color(Color('2c1c20'))
-	#VDP.CRAM[2][2] = VDP.round_color(Color('100e10'))
-	#VDP.CRAM[2][3] = VDP.round_color(Color("b26e42"))
-	#VDP.CRAM[2][4] = VDP.round_color(Color('412828'))
-	#VDP.CRAM[2][5] = VDP.round_color(Color('ffffff'))
-	#VDP.CRAM[2][6] = VDP.round_color(Color('b74b21'))
-	#VDP.CRAM[2][7] = VDP.round_color(Color('f98d52'))
-	#VDP.CRAM[2][8] = VDP.round_color(Color('696682'))
-	#VDP.CRAM[2][1] = VDP.round_color(Color("2c1c20"))
-	#VDP.CRAM[2][2] = VDP.round_color(Color("0e0b12"))
-	#VDP.CRAM[2][3] = VDP.round_color(Color("fcb490"))
-	#VDP.CRAM[2][4] = VDP.round_color(Color('412828'))
-	#VDP.CRAM[2][5] = VDP.round_color(Color('ffffff'))
-	#VDP.CRAM[2][6] = VDP.round_color(Color("742c10"))
-	#VDP.CRAM[2][7] = VDP.round_color(Color("8e400b"))
-	#VDP.CRAM[2][8] = VDP.round_color(Color("464646"))
-	VDP.load_palette("res://SCENES/VDP_TESTING/genesis-logo.hex",2)
-	VDP.load_palette("res://SCENES/VDP_TESTING/sonic.hex",1)
-	VDP.load_palette("res://SCENES/VDP_TESTING/mainmenu_choice.hex",3)
-	VDP.load_palette("res://SCENES/VDP_TESTING/checkerboard.hex",0)
+	sound = SOUND.new()
+	get_tree().get_root().add_child.call_deferred(sound)
+	switch_scene("res://SCENES/VDP_TESTING/CHECKERBOARD_BG.tscn")
 	VDP.update_palette()
 
+func switch_scene(path:String):
+	if scene != null:
+		scene.queue_free()
+	if FileAccess.file_exists(path):
+		scene = load(path).instantiate()
+	else:
+		bugcheck("SCENE_FILE_NOT_EXIST",path)
+	add_child(scene)
 
+func trans_scene(path:String):
+	scene_transition = true
+	VDP.fade_dimming = true
+	scene_path = path
 
-func _process(delta: float) -> void:
-	if Input.is_action_pressed("P1_DPAD_RIGHT"):
-		VDP.fade_value += delta
-		VDP.fade_value = clamp(VDP.fade_value,0,1)
-		VDP.update_palette()
-	if Input.is_action_pressed("P1_DPAD_LEFT"):
-		VDP.fade_value -= delta
-		VDP.fade_value = clamp(VDP.fade_value,0,1)
-		VDP.update_palette()
+func _process(_delta: float) -> void:
+	if scene_transition:
+		if VDP.fade_value == 0:
+			scene_transition=false
+			switch_scene(scene_path)
+			VDP.fade_dimming=false
 
+func _input(_event: InputEvent) -> void:
+	if Input.is_action_just_pressed("P1_A"):
+		CORE.sound.target_track = '00'
+
+func load_from_cache(path):
+	while not(cache.has(path)):
+		dbg("WARN", "CACHE MISSING, JUST-IN-TIME LOADING... "+path)
+		if load_to_cache(path):
+			cache[path] = null
+			bugcheck("CANNOT_CACHE_FILE",path)
+	return cache[path]
+
+func load_to_cache(path):
+	var file = FileAccess.open(path,FileAccess.READ)
+	if file != null:
+		cache[path] = file.get_buffer(file.get_length())
+		file.close()
+	else:
+		return true
 	
-func _input(_event):
-	if Input.is_action_just_pressed("TOGGLE_FULLSCREEN"):
-		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED or DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_MAXIMIZED:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+func remove_from_cache(path):
+	cache.erase(path)
+
+func dbg(type:String, msg:String):
+	if debug:
+		print("["+type+"]: " + msg)
+
+var bugcheck_msg
+var bugcheck_arg
+func bugcheck(msg,arg):
+	bugcheck_msg = msg
+	bugcheck_arg = arg
+	print("BUG")
+	switch_scene("res://SCENES/BUGCHECK/BUGCHECK.tscn")

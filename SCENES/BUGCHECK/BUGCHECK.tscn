@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbcbtb40rwwi3"]
+
+[ext_resource type="Script" uid="uid://cplkh4t8kvdnr" path="res://SCENES/BUGCHECK/bugcheck.gd" id="1_0lxrq"]
+[ext_resource type="PackedScene" uid="uid://br8c3cmbd3il1" path="res://SCENES/VDP_TESTING/CHECKERBOARD_BG.tscn" id="1_32iju"]
+[ext_resource type="PackedScene" uid="uid://ct174c3km3gj" path="res://SCENES/UI/CONTROL_ROOT.tscn" id="3_m4om0"]
+[ext_resource type="Script" uid="uid://d27li18xfp152" path="res://SYSTEM/COMPONENTS/VDP/VDP_OBJECT.gd" id="4_5xs0v"]
+
+[node name="Bugcheck" type="Node2D"]
+script = ExtResource("1_0lxrq")
+
+[node name="CheckerboardBg" parent="." instance=ExtResource("1_32iju")]
+
+[node name="CONTROL_ROOT" parent="." instance=ExtResource("3_m4om0")]
+offset_right = 400.0
+offset_bottom = 224.0
+
+[node name="ErrorMsg" type="Label" parent="CONTROL_ROOT"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VDPObject" type="Node2D" parent="CONTROL_ROOT/ErrorMsg"]
+script = ExtResource("4_5xs0v")
+text = true
+text_variables = Dictionary[String, int]({
+"font_color": 3,
+"font_outline_color": 4
+})
+metadata/_custom_type_script = "uid://d27li18xfp152"

@@ -6,6 +6,8 @@ const palette_size = 16
 const palette_count = 4
 const color_ramp = [0,52,87,116,144,172,206,255]
 var fade_value:float = 0
+var fade_speed:float = 1.2
+var fade_dimming:bool = false
 var fade_blue:bool = true
 var hardware_colors = true
 var CRAM = []
@@ -46,7 +48,7 @@ func generate_palette():
 	# FILL PALETTES WITH EMPTY COLORS
 	for palette in len(CRAM):
 		for color in palette_size:
-			CRAM[palette].append(round_color(Color.from_rgba8(randi_range(0,255),randi_range(0,255),randi_range(0,255)))) # GENERATE RANDOM COLORS
+			CRAM[palette].append(round_color(Color(0,0,0,0))) # GENERATE RANDOM COLORS
 		CRAM[palette][0].a = 0 # FIRST COLOR IN PALETTE IS ALWAYS TRANSPARENT, SEE THE SPECS 
 	for material:ShaderMaterial in PALETTES:
 		material.shader = load("res://SYSTEM/COMPONENTS/VDP/VDP_OBJECT.gdshader")
@@ -67,3 +69,21 @@ func SET_MODE(H,V):
 	var resolution = Vector2(tile_size * H, tile_size * V) # SETTING THE HXX RESOLUTION (ex. H40)
 	get_tree().root.content_scale_size = resolution
 	DisplayServer.window_set_min_size(resolution)
+
+#SWITCH FULLSCREEN MODE
+func _input(_event):
+	if Input.is_action_just_pressed("TOGGLE_FULLSCREEN"):
+		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED or DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_MAXIMIZED:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
+func _process(delta: float) -> void:
+	if fade_dimming == false:
+		if fade_value < 1:
+			fade_value = clampf(fade_value + fade_speed*delta,0,1)
+			update_palette()
+	else:
+		if fade_value > 0:
+			fade_value = clampf(fade_value - fade_speed*delta,0,1)
+			update_palette()

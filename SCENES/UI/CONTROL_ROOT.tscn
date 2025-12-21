@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct174c3km3gj"]
+
+[ext_resource type="FontFile" uid="uid://kwwf5pa2uytl" path="res://CONTENT/FONTS/SONIC2HUD.ttf" id="1_s3xaw"]
+
+[sub_resource type="Theme" id="Theme_thm6o"]
+default_font = ExtResource("1_s3xaw")
+default_font_size = 10
+Label/constants/outline_size = 3
+
+[node name="CONTROL_ROOT" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_thm6o")
