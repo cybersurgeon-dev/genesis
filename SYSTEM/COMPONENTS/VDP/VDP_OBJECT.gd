@@ -6,6 +6,8 @@ class_name VDPObject
 @export var wave_coeff:float = 0
 @export var wave_amplitude:float = 1
 @export var wave_offset:float = 0
+@export var text:bool = false
+@export var text_variables:Dictionary[String,int] = {'font_color':0, 'font_outline_color':0}
 var mat:ShaderMaterial
 
 func _ready() -> void:
@@ -13,9 +15,13 @@ func _ready() -> void:
 	update_shader()
 
 func update_shader() -> void: #VDPFX WITH GLOBAL CRAM
-	mat = VDP.PALETTES[palette].duplicate()
-	update_offset()
-	get_parent().material = mat
+	if text == false:
+		mat = VDP.PALETTES[palette].duplicate()
+		update_offset()
+		get_parent().material = mat
+	else:
+		for variable in text_variables.keys():
+			get_parent().set("theme_override_colors/"+variable,VDP.PALETTES[palette].get_shader_parameter("C"+str(text_variables[variable])))
 
 func update_offset():
 	mat.set_shader_parameter('offset_power', offset_power)

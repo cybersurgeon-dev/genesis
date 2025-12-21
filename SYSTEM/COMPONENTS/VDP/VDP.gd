@@ -28,6 +28,14 @@ func round_color(color: Color):
 			color[channel] = closest_color
 	return color
 
+func load_palette(path:String,target:int):
+	var palette_file = FileAccess.open(path,FileAccess.READ).get_as_text().split("\r\n").slice(0,VDP.palette_size)
+	for color in range(VDP.palette_size):
+		VDP.CRAM[target][color] = Color(palette_file[color].split("/")[0])
+		if len(palette_file[color].split("/")) > 1:
+			VDP.CRAM[target][color].a = float(palette_file[color].split("/")[1])
+	VDP.update_palette()
+
 func generate_palette():
 	CRAM = []
 	PALETTES = []
@@ -49,9 +57,9 @@ func update_palette():
 		for color in len(CRAM[palette]):
 			var color_value = CRAM[palette][color]
 			if fade_blue:
-				material.set_shader_parameter("C"+str(color),round_color(Color(color_value.r*min(1,fade_value), color_value.g*fade_value, color_value.b*min(1,fade_value*4)))) # SYNC GODOT MATERIAL WITH CRAM + SONICFADE
+				material.set_shader_parameter("C"+str(color),round_color(Color(color_value.r*min(1,fade_value), color_value.g*fade_value, color_value.b*min(1,fade_value*4),color_value.a))) # SYNC GODOT MATERIAL WITH CRAM + SONICFADE
 			else:
-				material.set_shader_parameter("C"+str(color),round_color(Color(color_value.r*min(1,fade_value), color_value.g*min(1,fade_value), color_value.b*min(1,fade_value)))) # SYNC GODOT MATERIAL WITH CRAM + NORMALFADE
+				material.set_shader_parameter("C"+str(color),round_color(Color(color_value.r*min(1,fade_value), color_value.g*min(1,fade_value), color_value.b*min(1,fade_value),color_value.a))) # SYNC GODOT MATERIAL WITH CRAM + NORMALFADE
 		material.set_shader_parameter("C0",Color(0,0,0,0))
 		get_tree().call_group("VDP_PALETTE_"+str(palette),"update_shader")
 

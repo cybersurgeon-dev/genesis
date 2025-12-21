@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://br8c3cmbd3il1"]
+[gd_scene load_steps=10 format=4 uid="uid://br8c3cmbd3il1"]
 
 [ext_resource type="Texture2D" uid="uid://da71jglp6y60e" path="res://SCENES/VDP_TESTING/CHECKERBOARD.bmp" id="1_4tlcm"]
 [ext_resource type="Script" uid="uid://24usf2lhvnd8" path="res://SCENES/VDP_TESTING/checkerboard_bg.gd" id="1_s3b2w"]
@@ -6,10 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d4jq73jhahcqr" path="res://SCENES/VDP_TESTING/CIRCLE.bmp" id="3_1ovr6"]
 [ext_resource type="Texture2D" uid="uid://c4b0dq2ih021x" path="res://SCENES/VDP_TESTING/ninja.png" id="4_e3u0y"]
 [ext_resource type="Texture2D" uid="uid://c63subo6k2cb6" path="res://SCENES/VDP_TESTING/genesis-logo.bmp" id="6_qhu6c"]
-[ext_resource type="Texture2D" uid="uid://bs2v1xgadkef5" path="res://SCENES/VDP_TESTING/mainmenu_choice.bmp" id="7_jhvw5"]
 [ext_resource type="FontFile" uid="uid://kwwf5pa2uytl" path="res://CONTENT/FONTS/SONIC2HUD.ttf" id="7_kscp2"]
-[ext_resource type="FontFile" uid="uid://cntrbvstm5k63" path="res://CONTENT/FONTS/PIXEL7.ttf" id="8_vi4am"]
-[ext_resource type="Texture2D" uid="uid://yv5n27nqvuix" path="res://SCENES/VDP_TESTING/sonic.bmp" id="10_bhxq3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ammmc"]
 texture = ExtResource("1_4tlcm")
@@ -20,64 +17,6 @@ texture_region_size = Vector2i(8, 8)
 [sub_resource type="TileSet" id="TileSet_d1mw7"]
 tile_size = Vector2i(8, 8)
 sources/0 = SubResource("TileSetAtlasSource_ammmc")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jhvw5"]
-atlas = ExtResource("7_jhvw5")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bhxq3"]
-atlas = ExtResource("7_jhvw5")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f6pre"]
-atlas = ExtResource("7_jhvw5")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8dfes"]
-atlas = ExtResource("7_jhvw5")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_uqmrm"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_jhvw5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bhxq3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f6pre")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8dfes")
-}],
-"loop": true,
-"name": &"default",
-"speed": 10.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uqmrm"]
-atlas = ExtResource("10_bhxq3")
-region = Rect2(0, 0, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_opwma"]
-atlas = ExtResource("10_bhxq3")
-region = Rect2(32, 0, 32, 40)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6qk5l"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uqmrm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_opwma")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
 
 [node name="CheckerboardBg" type="Node2D"]
 script = ExtResource("1_s3b2w")
@@ -122,16 +61,15 @@ metadata/_custom_type_script = "uid://d27li18xfp152"
 
 [node name="Character" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(34, 46)
+position = Vector2(201, 114)
 texture = ExtResource("4_e3u0y")
 
 [node name="VDPObject" type="Node2D" parent="Character"]
 script = ExtResource("2_m2p2c")
-palette = 1
+palette = 2
 metadata/_custom_type_script = "uid://d27li18xfp152"
 
 [node name="GenesisLogo" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(199, 101)
 texture = ExtResource("6_qhu6c")
 
@@ -149,176 +87,29 @@ offset_bottom = 224.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="Label" type="Label" parent="Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -65.0
+offset_top = 37.0
+offset_right = 65.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 17
-alignment = 1
-
-[node name="CenterContainer" type="CenterContainer" parent="Control/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/VBoxContainer2/CenterContainer"]
-layout_mode = 2
-texture = ExtResource("6_qhu6c")
-
-[node name="VDPObject" type="Node2D" parent="Control/VBoxContainer/VBoxContainer2/CenterContainer/TextureRect"]
-script = ExtResource("2_m2p2c")
-palette = 2
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/VBoxContainer2"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.5647059, 0.5647059, 0.5647059, 1)
 theme_override_colors/font_outline_color = Color(0.8784314, 0.8784314, 0.8784314, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("7_kscp2")
 theme_override_font_sizes/font_size = 10
-text = "НОВАЯ ИГРА"
+text = "НАЧАТЬ ИГРУ"
 horizontal_alignment = 1
-
-[node name="VDPObject" type="Node2D" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer/Label"]
-rotation = 0.008010476
-script = ExtResource("2_m2p2c")
-palette = 2
-text = true
-text_variables = Dictionary[String, int]({
-"font_color": 2,
-"font_outline_color": 13
-})
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="Label2" type="Label" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.8784314, 0.8784314, 0.8784314, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("7_kscp2")
-theme_override_font_sizes/font_size = 10
-text = "ПРОДОЛЖИТЬ"
-horizontal_alignment = 1
-
-[node name="VDPObject" type="Node2D" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer/Label2"]
-rotation = 0.008010476
-script = ExtResource("2_m2p2c")
-palette = 2
-text = true
-text_variables = Dictionary[String, int]({
-"font_color": 2,
-"font_outline_color": 13
-})
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="Label3" type="Label" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.8784314, 0.8784314, 0.8784314, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("7_kscp2")
-theme_override_font_sizes/font_size = 10
-text = "НАСТРОЙКИ"
-horizontal_alignment = 1
-
-[node name="VDPObject" type="Node2D" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer/Label3"]
-rotation = 0.008010476
-script = ExtResource("2_m2p2c")
-palette = 2
-text = true
-text_variables = Dictionary[String, int]({
-"font_color": 2,
-"font_outline_color": 13
-})
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="Label4" type="Label" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0.8784314, 0.8784314, 0.8784314, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("7_kscp2")
-theme_override_font_sizes/font_size = 10
-text = "ВЫХОД"
-horizontal_alignment = 1
-
-[node name="VDPObject" type="Node2D" parent="Control/VBoxContainer/VBoxContainer2/VBoxContainer/Label4"]
-rotation = 0.008010476
-script = ExtResource("2_m2p2c")
-palette = 2
-text = true
-text_variables = Dictionary[String, int]({
-"font_color": 2,
-"font_outline_color": 13
-})
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_top = 205.0
-offset_right = 400.0
-offset_bottom = 224.0
-size_flags_vertical = 8
-theme_override_constants/line_spacing = -3
-theme_override_fonts/font = ExtResource("8_vi4am")
-theme_override_font_sizes/font_size = 10
-text = "WATERCOLOR(R), 2026
-все права защищены."
-horizontal_alignment = 2
 
 [node name="VDPObject" type="Node2D" parent="Control/Label"]
 script = ExtResource("2_m2p2c")
 palette = 2
-text = true
-text_variables = Dictionary[String, int]({
-"font_color": 11,
-"font_outline_color": 14
-})
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
-position = Vector2(252, 117)
-sprite_frames = SubResource("SpriteFrames_uqmrm")
-autoplay = "default"
-frame_progress = 0.73563427
-flip_h = true
-
-[node name="VDPObject" type="Node2D" parent="AnimatedSprite2D2"]
-script = ExtResource("2_m2p2c")
-palette = 3
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(146, 117)
-sprite_frames = SubResource("SpriteFrames_uqmrm")
-autoplay = "default"
-frame_progress = 0.29234624
-
-[node name="VDPObject" type="Node2D" parent="AnimatedSprite2D"]
-script = ExtResource("2_m2p2c")
-palette = 3
-metadata/_custom_type_script = "uid://d27li18xfp152"
-
-[node name="sonic" type="AnimatedSprite2D" parent="."]
-position = Vector2(137, 23)
-sprite_frames = SubResource("SpriteFrames_6qk5l")
-autoplay = "default"
-frame_progress = 0.58024526
-
-[node name="VDPObject" type="Node2D" parent="sonic"]
-script = ExtResource("2_m2p2c")
-palette = 1
 metadata/_custom_type_script = "uid://d27li18xfp152"
