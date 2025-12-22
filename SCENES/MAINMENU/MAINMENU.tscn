@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://d324mumtcowuu"]
+
+[ext_resource type="PackedScene" uid="uid://ct174c3km3gj" path="res://SCENES/UI/CONTROL_ROOT/CONTROL_ROOT.tscn" id="1_11gia"]
+[ext_resource type="PackedScene" uid="uid://br8c3cmbd3il1" path="res://SCENES/CHECKERBOARD_BG/CHECKERBOARD_BG.tscn" id="1_pqc1d"]
+[ext_resource type="Script" uid="uid://s4ndla31w6mv" path="res://SCENES/MAINMENU/MAINMENU.gd" id="1_sfru7"]
+[ext_resource type="Script" uid="uid://b1st30b4h8km2" path="res://SCRIPTS/UI/LAYER.gd" id="3_3hd3f"]
+[ext_resource type="Script" uid="uid://d27li18xfp152" path="res://SYSTEM/COMPONENTS/VDP/VDP_OBJECT.gd" id="4_sfru7"]
+[ext_resource type="Texture2D" uid="uid://cpx1lrnwb6pgw" path="res://SCENES/MAINMENU/genesis-logo.bmp" id="5_uxfql"]
+
+[node name="Mainmenu" type="Node2D"]
+script = ExtResource("1_sfru7")
+
+[node name="CheckerboardBg" parent="." instance=ExtResource("1_pqc1d")]
+
+[node name="CONTROL_ROOT" parent="." instance=ExtResource("1_11gia")]
+
+[node name="Layer" type="Container" parent="CONTROL_ROOT"]
+layout_mode = 0
+offset_top = -100.0
+offset_right = 400.0
+offset_bottom = 124.0
+script = ExtResource("3_3hd3f")
+fullscreen = true
+offset = Vector2(0, -100)
+metadata/_custom_type_script = "uid://b1st30b4h8km2"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CONTROL_ROOT/Layer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="CONTROL_ROOT/Layer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("5_uxfql")
+stretch_mode = 2
+
+[node name="VDPObject" type="Node2D" parent="CONTROL_ROOT/Layer/VBoxContainer/TextureRect"]
+script = ExtResource("4_sfru7")
+palette = 2
+metadata/_custom_type_script = "uid://d27li18xfp152"
+
+[node name="Label" type="Label" parent="CONTROL_ROOT/Layer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "НОВАЯ ИГРА"
+horizontal_alignment = 1
+
+[node name="Layer2" type="Container" parent="CONTROL_ROOT"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 600.0
+offset_bottom = 224.0
+script = ExtResource("3_3hd3f")
+fullscreen = true
+offset = Vector2(200, 0)
+metadata/_custom_type_script = "uid://b1st30b4h8km2"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CONTROL_ROOT/Layer2"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CONTROL_ROOT/Layer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "watercolor(C) 2026"
+horizontal_alignment = 2

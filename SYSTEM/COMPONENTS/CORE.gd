@@ -6,13 +6,14 @@ var scene_path:String
 var sound
 var cache:Dictionary = {}
 var debug:bool = true
-
+var bugcheck_msg
+var bugcheck_arg
 
 func _ready():
 	VDP.SET_MODE(50,28)
 	sound = SOUND.new()
 	get_tree().get_root().add_child.call_deferred(sound)
-	switch_scene("res://SCENES/VDP_TESTING/CHECKERBOARD_BG.tscn")
+	switch_scene("res://SCENES/MAINMENU/MAINMENU.tscn")
 	VDP.update_palette()
 
 func switch_scene(path:String):
@@ -55,7 +56,6 @@ func load_to_cache(path):
 		file.close()
 	else:
 		return true
-	
 
 func remove_from_cache(path):
 	cache.erase(path)
@@ -64,8 +64,6 @@ func dbg(type:String, msg:String):
 	if debug:
 		print("["+type+"]: " + msg)
 
-var bugcheck_msg
-var bugcheck_arg
 func bugcheck(msg,arg):
 	bugcheck_msg = msg
 	bugcheck_arg = arg

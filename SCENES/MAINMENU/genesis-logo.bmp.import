@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da71jglp6y60e"
-path="res://.godot/imported/CHECKERBOARD.bmp-a96de21c8c5c4084e6f36b9ac380f799.ctex"
+uid="uid://cpx1lrnwb6pgw"
+path="res://.godot/imported/genesis-logo.bmp-3c33f52c6e9f6ab1075fd22b95c0b0bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SCENES/VDP_TESTING/CHECKERBOARD.bmp"
-dest_files=["res://.godot/imported/CHECKERBOARD.bmp-a96de21c8c5c4084e6f36b9ac380f799.ctex"]
+source_file="res://SCENES/MAINMENU/genesis-logo.bmp"
+dest_files=["res://.godot/imported/genesis-logo.bmp-3c33f52c6e9f6ab1075fd22b95c0b0bf.ctex"]
 
 [params]
 

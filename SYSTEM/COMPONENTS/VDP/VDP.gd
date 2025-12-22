@@ -12,6 +12,7 @@ var fade_blue:bool = true
 var hardware_colors = true
 var CRAM = []
 var PALETTES = []
+var resolution:Vector2
 
 func _ready() -> void:
 	generate_palette()
@@ -66,7 +67,7 @@ func update_palette():
 		get_tree().call_group("VDP_PALETTE_"+str(palette),"update_shader")
 
 func SET_MODE(H,V):
-	var resolution = Vector2(tile_size * H, tile_size * V) # SETTING THE HXX RESOLUTION (ex. H40)
+	resolution = Vector2(tile_size * H, tile_size * V) # SETTING THE HXX RESOLUTION (ex. H40)
 	get_tree().root.content_scale_size = resolution
 	DisplayServer.window_set_min_size(resolution)
 
